@@ -18,7 +18,7 @@ const credentials = {
   }
 };
 
-const oauth2 = require('simple-oauth2').create(credentials);
+const oauth2 = require('../simple-oauth2/index').create(credentials);
 
 const postNvmToken = async function () {
   try {
