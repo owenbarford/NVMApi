@@ -15,9 +15,13 @@ const addTokenToMemCache = function(keydata){
 const getTokenFromMemCache = function(keyname){
     if (keyname === keyName) {
         let data = cache.get(keyname);
-        console.log('token retrieved from cache: ' + data);
-        console.log(cache.keys())
-        return data;
+        if (data === null) {
+            console.log('no data returned');
+        } else {
+            console.log('token retrieved from cache: ' + data);
+            console.log(cache.keys())
+            return data;
+        }
     }
 }
 

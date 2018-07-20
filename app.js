@@ -23,6 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 //enable all CORS requests - not advisable in production environments.
 app.use(cors());
 
@@ -31,12 +32,16 @@ app.use('/api', apiRoutes);
 
 app.options('/api/nvm', cors()) // enable pre-flight request for DELETE request 
 
-app.use('/api/nvm', function(req, res, next) {   
-  res.header('Access-Control-Allow-Origin', 'https://cloud11.contact-world.net');   
-  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');   
+app.use('/api/nvm', function(req, res, next) {
+  var allowedOrigins = ['http://localhost:4200', 'https://cloud11.contact-world.net', 'https://www.suppappuk.com'];
+  var origin = req.headers.origin;
+  if(allowedOrigins.indexOf(origin) > -1){
+       res.setHeader('Access-Control-Allow-Origin', origin);
+  }
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');   
   next(); 
 });
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
