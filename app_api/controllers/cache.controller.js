@@ -5,8 +5,12 @@ const keyName = 'access_token'; // memory cache key name
 
 const addTokenToMemCache = function(keydata){
     if (!cache.get(keyName)){
-        cache.put(keyName, keydata, timeToKeep);
-        console.log('token added to memory cache');
+        if (keydata !== null) {
+            cache.put(keyName, keydata, timeToKeep);
+            console.log('token added to memory cache');
+        } else {
+            console.log('no data to add to cache');
+        }
     } else {
         console.log('access token already exists');
     }

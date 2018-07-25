@@ -22,24 +22,24 @@ const oauth2 = require('../simple-oauth2/index').create(credentials);
 
 const postNvmToken = async function () {
   try {
-    const result = await oauth2.authorizationCode.getToken()
-    const accessToken = oauth2.accessToken.create(result);
-    memCache.addTokenToMemCache(accessToken['token']);
+      const result = await oauth2.authorizationCode.getToken()
+      const accessToken = oauth2.accessToken.create(result);
+      memCache.addTokenToMemCache(accessToken['token']);
   } catch (error) {
-    console.log('Access Token Error', error.message);
+      console.log('Access Token Error', error.message);
   }
 }
 
 const getNvmToken = function(req, res) {
   if (!memCache.getTokenFromMemCache(memCacheKeyName)) {
-    postNvmToken();
-    let data = memCache.getTokenFromMemCache(memCacheKeyName);
-    console.log(data);
-    res.send(data);
+      postNvmToken();
+      setTimeout(function(){
+        let data = memCache.getTokenFromMemCache(memCacheKeyName);
+        res.send(data);;
+      }, 400);
   } else {
-    let data = memCache.getTokenFromMemCache(memCacheKeyName);
-    console.log(data);
-    res.send(data);
+      let data = memCache.getTokenFromMemCache(memCacheKeyName);
+      res.send(data);
   }
 }
 

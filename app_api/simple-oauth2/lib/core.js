@@ -52,7 +52,7 @@ module.exports = (config) => {
     if (Object.keys(params).length === 0) params = null;
 
        options.body = 'grant_type=client_credentials';
-       console.log(params)
+       // console.log(params)
 
     return request(options);
   }

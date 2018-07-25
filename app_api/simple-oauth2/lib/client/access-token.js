@@ -31,7 +31,8 @@ module.exports = (config) => {
   
     var today = new Date();
     if (today.isDstObserved()) { 
-        var newVal = Number.parseInt(this.token.expires_in, 10) * 2;
+        // making sure we don't need to adjust for DST
+        var newVal = Number.parseInt(this.token.expires_in, 10) * 1; 
         this.token.expires_in = newVal.toString();
     } 
 
